@@ -1,13 +1,13 @@
-#esg
+# esg
 Error Struct Generator
 
-###Usage
+### Usage
 `esg output_dir pkg_name error_code formatted_message [name_of_arguments..]`
 
 name_of_argument must not be ErrorCode.
-###Example
+### Example
 `esg /src/myproj errors InvalidPhone "%s is not valid phone number." Phone`
-###Generated Code
+### Generated Code
 ```go
 package errors
 
