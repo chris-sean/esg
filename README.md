@@ -1,4 +1,4 @@
-# esg
+# ESG
 Error Struct Generator
 
 ### Usage
