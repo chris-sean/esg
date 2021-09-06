@@ -99,7 +99,7 @@ func save(outputDir, pkg, errCode, goCode string) {
 	if err = f.Close(); err != nil {
 		panic(err)
 	}
-	fmt.Printf("\nFile P/ath: %s", filepath)
+	fmt.Printf("\nFile Path: %s", filepath)
 }
 
 
