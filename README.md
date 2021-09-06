@@ -1,5 +1,5 @@
 # ESG
-Error Struct Generator
+ESG is short for Error Struct Generator
 
 ### Usage
 `esg output_dir pkg_name error_code formatted_message [name_of_arguments..]`
