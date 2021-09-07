@@ -36,7 +36,6 @@ package %s
 import "fmt"
 
 type %s struct {
-	ErrorCode string
 `, pkg, errCode)
 	if haveArgs {
 		for _, arg := range args {
@@ -45,6 +44,13 @@ type %s struct {
 		}
 	}
 	goCode += "}\n"
+
+	// write Code() function
+	goCode += fmt.Sprintf(`
+func (e %s)Code() string {
+	return "%s"
+}
+`, errCode, errCode)
 
 	// write Error() function
 	goCode += fmt.Sprintf("\nfunc (e %s)Error() string {\n	return fmt.Sprintf(\"%s\"", errCode, msg)
@@ -68,8 +74,7 @@ func New%s(`, errCode)
 	}
 	goCode += fmt.Sprintf(`) %s {
 	return %s{
-		ErrorCode: "%s",
-`, errCode, errCode, errCode)
+`, errCode, errCode)
 	if haveArgs {
 		for _, arg := range args {
 			goCode += fmt.Sprintf("		%s: %s,\n", arg, arg)
