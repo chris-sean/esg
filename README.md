@@ -11,7 +11,7 @@ name_of_argument must not be ErrorCode.
 ### Example
 `./esg /src/myproj errors InvalidPhone "%v is not valid phone number." phone`
 
-The generated file is at `./src/myproj/errors/InvalidPhone.go`
+The generated file is at `./src/myproj/InvalidPhone.go`
 
 The source code is like below.
 ```go
