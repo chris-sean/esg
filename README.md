@@ -1,6 +1,6 @@
 # ESG
 ESG is short for Error Struct Generator.
-g
+
 It only generate Go source code recently.
 
 ### Build
