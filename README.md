@@ -6,12 +6,15 @@ It only generate Go source code recently.
 `go build -o esg`
 
 ### Usage
-`./esg output_dir pkg_name error_code formatted_message [name_of_arguments..]`
+`./esg language arguments`
+
+### Go
+`./esg go output_dir pkg_name error_code formatted_message [name_of_arguments..]`
 
 ### Example
-`./esg /src/myproj errors InvalidPhone "%v is not valid phone number." phone`
+`./esg go . errors InvalidPhone "%v is not valid phone number." phone`
 
-The generated file is at `./src/myproj/InvalidPhone.go`
+The generated file is at `./InvalidPhone.go`
 
 The source code looks like below.
 ```go
