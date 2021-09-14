@@ -33,7 +33,7 @@ ESG can generate an `error` type source code with both Code and Description.
 
 ### Example
 
-`./esg go . errors InvalidPhone '%v is not valid phone number.' phone`
+`./esg go . errors InvalidPhone '%v is not a valid phone number.' phone`
 
 The generated file is at `./InvalidPhone.go`
 
@@ -65,7 +65,7 @@ func (e InvalidPhone) StatusCode() int {
 
 // Error implementation to error interface.
 func (e InvalidPhone) Error() string {
-	return fmt.Sprintf(`%v is not valid phone number.`, e.phone)
+	return fmt.Sprintf(`%v is not a valid phone number.`, e.phone)
 }
 
 // NewInvalidPhone is convenient constructor.
