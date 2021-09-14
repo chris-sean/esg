@@ -48,12 +48,12 @@ func (e InvalidPhone) StatusCode() int {
 	return 500
 }
 
-// Error implementation to error interface
+// Error implementation to error interface.
 func (e InvalidPhone) Error() string {
 	return fmt.Sprintf(`%v is not valid phone number.`, e.phone)
 }
 
-// NewInvalidPhone convenient constructor
+// NewInvalidPhone is convenient constructor.
 func NewInvalidPhone(phone interface{}) InvalidPhone {
 	return InvalidPhone{
 		phone: phone,

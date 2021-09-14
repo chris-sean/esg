@@ -63,7 +63,7 @@ func (e %s)StatusCode() int {
 `, errCode, errCode, errCode)
 
 	// write Error() function
-	source += `// Error implementation to error interface`
+	source += `// Error implementation to error interface.`
 	source += fmt.Sprintf("\nfunc (e %s)Error() string {\n	return fmt.Sprintf(`%s`", errCode, msg)
 	if haveArgs {
 		for _, arg := range formatArgs {
