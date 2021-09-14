@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"fmt"
@@ -47,12 +47,23 @@ type %s struct {
 
 	// write Code() function
 	source += fmt.Sprintf(`
-func (e %s)Code() string {
+// ErrorCode change it as you prefer.
+func (e %s)ErrorCode() interface{} {
 	return "%s"
 }
-`, errCode, errCode)
+
+// StatusCode refers to http response status code.
+// Developer may want to set response status code based on error.
+// For example, if the error is caused by bad request, then change the return value to 400.
+// Ignore this function if no need for your project.
+func (e %s)StatusCode() int {
+	return 500
+}
+
+`, errCode, errCode, errCode)
 
 	// write Error() function
+	source += `// Error implementation to error interface`
 	source += fmt.Sprintf("\nfunc (e %s)Error() string {\n	return fmt.Sprintf(`%s`", errCode, msg)
 	if haveArgs {
 		for _, arg := range formatArgs {
@@ -63,7 +74,8 @@ func (e %s)Code() string {
 
 	// write New() function
 	source += fmt.Sprintf(`
-func New%s(`, errCode)
+// New%s convenient constructor
+func New%s(`, errCode, errCode)
 	if haveArgs {
 		for idx, arg := range formatArgs {
 			source += fmt.Sprintf("%s", arg)

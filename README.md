@@ -2,7 +2,7 @@
 
 ESG is short for Error Struct Generator.
 
-It only generate Go source code recently.
+It only generates Go source code recently.
 
 ### Build
 
@@ -35,14 +35,25 @@ type InvalidPhone struct {
 	phone interface{}
 }
 
-func (e InvalidPhone) Code() string {
+// ErrorCode change it as you prefer.
+func (e InvalidPhone) ErrorCode() interface{} {
 	return "InvalidPhone"
 }
 
-func (e InvalidPhone) Error() string {
-	return fmt.Sprintf("%v is not valid phone number.", e.phone)
+// StatusCode refers to http response status code.
+// Developer may want to set response status code based on error.
+// For example, if the error is caused by bad request, then change the return value to 400.
+// Ignore this function if no need for your project.
+func (e InvalidPhone) StatusCode() int {
+	return 500
 }
 
+// Error implementation to error interface
+func (e InvalidPhone) Error() string {
+	return fmt.Sprintf(`%v is not valid phone number.`, e.phone)
+}
+
+// NewInvalidPhone convenient constructor
 func NewInvalidPhone(phone interface{}) InvalidPhone {
 	return InvalidPhone{
 		phone: phone,
@@ -62,3 +73,40 @@ Sometimes you need to send a JSON to the client. There are error message and err
   }
 }
 ```
+
+### Interface
+
+ESG provides a common interface `ErrorType` developer may need.
+
+#### Go
+
+Import ESG module to your project.
+
+```go
+package awesome
+
+import "github.com/SimpleFelix/esg"
+
+type ErrorPayload struct {
+	Code interface{} `json:"code,omitempty"`
+	Desc string      `json:"desc"`
+}
+
+func Handle(err esg.ErrorType) {
+	if err == nil {
+		response(200, nil)
+		return
+	}
+	payload := ErrorPayload{
+		Code: err.ErrorCode(),
+		Desc: err.Error(),
+	}
+	response(
+		err.StatusCode(),
+		map[string]interface{}{
+			"error": payload,
+		},
+	)
+}
+```
+

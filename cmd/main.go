@@ -1,6 +1,7 @@
 package main
 
 import (
+	"esg/internal"
 	"fmt"
 	"os"
 )
@@ -17,7 +18,7 @@ func main() {
 	// generate and save file
 	switch lang {
 	case "go":
-		save(GenerateGoCode(args))
+		save(internal.GenerateGoCode(args))
 	default:
 		showHelp()
 	}
@@ -42,7 +43,7 @@ func save(outputDir, filename, source string) {
 	fmt.Printf("\nFile Path: %s", filepath)
 }
 
-func showHelp()  {
+func showHelp() {
 	fmt.Println(`Error Struct Generator
 
 Usage: esg language arguments
