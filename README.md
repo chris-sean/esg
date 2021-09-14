@@ -83,7 +83,7 @@ package errors
 
 func brilliantlyValidate(phone string) error {
 	if len(phone) > 100 {
-        return ErrInvalidPhone(phone)
+		return ErrInvalidPhone(phone)
 	}
 	return nil
 }
