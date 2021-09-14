@@ -74,7 +74,7 @@ func (e %s)StatusCode() int {
 
 	// write New() function
 	source += fmt.Sprintf(`
-// New%s convenient constructor
+// New%s is convenient constructor.
 func New%s(`, errCode, errCode)
 	if haveArgs {
 		for idx, arg := range formatArgs {
