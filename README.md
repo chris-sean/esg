@@ -82,7 +82,7 @@ ESG provides a common interface `ErrorType` developer may need.
 
 #### Go
 
-Import ESG module to your project. ESG module require no dependency so far.
+Import ESG module to your project. ESG module requires no dependency so far.
 
 ```go
 package awesome
