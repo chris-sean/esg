@@ -74,8 +74,8 @@ func (e %s)StatusCode() int {
 
 	// write New() function
 	source += fmt.Sprintf(`
-// New%s is convenient constructor.
-func New%s(`, errCode, errCode)
+// Err%s is convenient constructor.
+func Err%s(`, errCode, errCode)
 	if haveArgs {
 		for idx, arg := range formatArgs {
 			source += fmt.Sprintf("%s", arg)

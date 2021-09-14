@@ -68,11 +68,24 @@ func (e InvalidPhone) Error() string {
 	return fmt.Sprintf(`%v is not a valid phone number.`, e.phone)
 }
 
-// NewInvalidPhone is convenient constructor.
-func NewInvalidPhone(phone interface{}) InvalidPhone {
+// ErrInvalidPhone is convenient constructor.
+func ErrInvalidPhone(phone interface{}) InvalidPhone {
 	return InvalidPhone{
 		phone: phone,
 	}
+}
+```
+
+#### Example of Using Error Struct
+
+```go
+package errors
+
+func brilliantlyValidate(phone string) error {
+	if len(phone) > 100 {
+        return ErrInvalidPhone(phone)
+	}
+	return nil
 }
 ```
 
