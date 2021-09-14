@@ -4,6 +4,21 @@ ESG is short for Error Struct Generator.
 
 It only generates Go source code recently.
 
+### Scene
+
+Sometimes developer need to send a JSON to the client. There are error code and error description within the payload.
+
+```json
+{
+  "error": {
+    "code": "InvalidPhone",
+    "desc": "abc123 is not valid phone number."
+  }
+}
+```
+
+ESG can generate an `error` type source code with both Code and Description.
+
 ### Build
 
 `go build -o esg`
@@ -12,7 +27,7 @@ It only generates Go source code recently.
 
 `./esg language arguments`
 
-### Go
+### Go Usage
 
 `./esg go output_dir pkg_name error_code formatted_message [name_of_arguments..]`
 
@@ -58,19 +73,6 @@ func NewInvalidPhone(phone interface{}) InvalidPhone {
 	return InvalidPhone{
 		phone: phone,
 	}
-}
-```
-
-### Scene
-
-Sometimes you need to send a JSON to the client. There are error message and error code within the payload.
-
-```json
-{
-  "error": {
-    "code": "InvalidPhone",
-    "msg": "abc123 is not valid phone number."
-  }
 }
 ```
 
