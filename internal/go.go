@@ -9,11 +9,16 @@ import (
 func GenerateGoCode(args []string) (dir, file, source string) {
 	numberOfArgs := len(args)
 	if numberOfArgs < 4 {
-		fmt.Println(`
-Usage: esg go output_dir pkg_name error_code formatted_message [name_of_arguments..]
-Example: esg go . errors InvalidPhone "%s is not valid phone number." Phone
-`)
-		os.Exit(0)
+		showHelpAndExit()
+	}
+
+	statusCode := "500"
+	if args[0] == "-sc" {
+		if numberOfArgs < 6 {
+			showHelpAndExit()
+		}
+		statusCode = args[1]
+		args = args[2:]
 	}
 
 	dir = args[0]
@@ -57,10 +62,10 @@ func (e %s)ErrorCode() interface{} {
 // For example, if the error is caused by bad request, then change the return value to 400.
 // Ignore this function if no need for your project.
 func (e %s)StatusCode() int {
-	return 500
+	return %s
 }
 
-`, errCode, errCode, errCode)
+`, errCode, errCode, errCode, statusCode)
 
 	// write Error() function
 	source += `// Error implementation to error interface.`
@@ -97,4 +102,12 @@ func Err%s(`, errCode, errCode)
 	source += "	}\n}\n"
 
 	return dir, errCode + ".go", source
+}
+
+func showHelpAndExit() {
+	fmt.Println(`
+Usage: esg go [-sc statu_code] output_dir pkg_name error_code formatted_message [name_of_arguments..]
+Example: esg go . errors InvalidPhone "%s is not valid phone number." Phone
+`)
+	os.Exit(0)
 }

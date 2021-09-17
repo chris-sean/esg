@@ -6,7 +6,7 @@ It only generates Go source code recently.
 
 ### Scene
 
-Sometimes developer need to send a JSON to the client. There are error code and error description within the payload.
+Sometimes developer need to respond a JSON to the client. There are error code and error description within the payload.
 
 ```json
 {
@@ -17,7 +17,15 @@ Sometimes developer need to send a JSON to the client. There are error code and 
 }
 ```
 
-ESG can generate an `error` type source code with both Code and Description.
+It is cool if the error object that function returns contains an error code.
+
+Even better if it contains a http response code. Because error can be caused by either server-side or client-side. For
+example, if error is caused by wrong parameters. You may want to respond a 400 instead of 500.
+
+Or you can always respond 200 if your client doesn't read response status code. Surely `error` in the JSON is already
+informative.
+
+ESG can generate an `error` type source code with both Code and Description. And response status code if you interested.
 
 ### Build
 
@@ -29,11 +37,19 @@ ESG can generate an `error` type source code with both Code and Description.
 
 ### Go Usage
 
-`./esg go output_dir pkg_name error_code formatted_message [name_of_arguments..]`
+`./esg go [-sc statu_code] output_dir pkg_name error_code formatted_message [name_of_arguments..]`
 
 ### Example
 
 `./esg go . errors InvalidPhone '%v is not a valid phone number.' phone`
+
+*If you want to use `StatusCode` function which returns a http response code. Default code is 500.*
+
+*You may want to use `-sc` argument to specify a http status code.*
+
+`./esg go -sc 400 . errors InvalidPhone '%v is not a valid phone number.' phone`
+
+*Notice that `-sc` must be right next to `go` command. Otherwise, it won't work.*
 
 The generated file is at `./InvalidPhone.go`
 
@@ -107,16 +123,16 @@ type ErrorPayload struct {
 	Desc string      `json:"desc"`
 }
 
-func Handle(err esg.ErrorType) {
+func Handle(data interface{}, err esg.ErrorType) {
 	if err == nil {
-		response(200, nil)
+		respond(200, data)
 		return
 	}
 	payload := ErrorPayload{
 		Code: err.ErrorCode(),
 		Desc: err.Error(),
 	}
-	response(
+	respond(
 		err.StatusCode(),
 		map[string]interface{}{
 			"error": payload,

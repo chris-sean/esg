@@ -1,9 +1,10 @@
 package main
 
 import (
-	"esg/internal"
 	"fmt"
 	"os"
+
+	"github.com/SimpleFelix/esg/internal"
 )
 
 func main() {
