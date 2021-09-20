@@ -27,9 +27,18 @@ informative.
 
 ESG can generate an `error` type source code with both Code and Description. And response status code if you interested.
 
-### Build
+### Install
 
-`go build -o esg`
+Install binary to `GOPATH`.
+```
+go install github.com/SimpleFelix/esg/cmd/esg@latest
+```
+
+Or build it from source.
+```
+cd cmd/esg
+go build -o esg
+```
 
 ### Usage
 
