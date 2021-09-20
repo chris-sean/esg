@@ -42,21 +42,21 @@ go build -o esg
 
 ### Usage
 
-`./esg language arguments`
+`esg language arguments`
 
 ### Go Usage
 
-`./esg go [-sc statu_code] output_dir pkg_name error_code formatted_message [name_of_arguments..]`
+`esg go [-sc statu_code] output_dir pkg_name error_code formatted_message [name_of_arguments..]`
 
 ### Example
 
-`./esg go . errors InvalidPhone '%v is not a valid phone number.' phone`
+`esg go . errors InvalidPhone '%v is not a valid phone number.' phone`
 
 *If you want to use `StatusCode` function which returns a http response code. Default code is 500.*
 
 *You may want to use `-sc` argument to specify a http status code.*
 
-`./esg go -sc 400 . errors InvalidPhone '%v is not a valid phone number.' phone`
+`esg go -sc 400 . errors InvalidPhone '%v is not a valid phone number.' phone`
 
 *Notice that `-sc` must be right next to `go` command. Otherwise, it won't work.*
 
