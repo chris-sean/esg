@@ -40,7 +40,7 @@ package %s
 import "fmt"
 
 type %s struct {
-	ExtraValue_ interface{}
+	_extra_ interface{}
 `, time.Now().Format("2006-01-02 15:04:05"),
 		pkg, errCode)
 	if haveArgs {
@@ -66,12 +66,17 @@ func (e %s) StatusCode() int {
 	return %s
 }
 
-// Extra returns ExtraValue_ which can be set by user. Usage of ExtraValue_ is determined by user.
+// Extra returns _extra_ which can be set by user. Usage of _extra_ is determined by user.
 func (e %s) Extra() interface{} {
-	return e.ExtraValue_
+	return e._extra_
 }
 
-`, errCode, errCode, errCode, statusCode, errCode)
+// SetExtra sets _extra_ with a value by user. Usage of _extra_ is determined by user.
+func (e %s) SetExtra(extra interface{}) {
+	e._extra_ = extra
+}
+
+`, errCode, errCode, errCode, statusCode, errCode, errCode)
 
 	// write Error() function
 	source += `// Error implementation to error interface.`

@@ -5,6 +5,7 @@ type ErrorType interface {
 	ErrorCode() interface{}
 	StatusCode() int
 	Extra() interface{}
+	SetExtra(interface{})
 }
 
 var NoError = noError{}
@@ -26,4 +27,8 @@ func (e noError) StatusCode() int {
 
 func (e noError) Extra() interface{} {
 	return nil
+}
+
+func (e noError) SetExtra(interface{}) {
+
 }

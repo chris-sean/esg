@@ -74,8 +74,8 @@ package errors
 import "fmt"
 
 type InvalidPhone struct {
-	ExtraValue_ interface{}
-	phone       interface{}
+	_extra_ interface{}
+	phone   interface{}
 }
 
 // ErrorCode change it as you prefer.
@@ -91,9 +91,14 @@ func (e InvalidPhone) StatusCode() int {
 	return 500
 }
 
-// Extra returns ExtraValue_ which can be set by user. Usage of ExtraValue_ is determined by user.
+// Extra returns _extra_ which can be set by user. Usage of _extra_ is determined by user.
 func (e InvalidPhone) Extra() interface{} {
-	return e.ExtraValue_
+	return e._extra_
+}
+
+// SetExtra sets _extra_ with a value by user. Usage of _extra_ is determined by user.
+func (e InvalidPhone) SetExtra(extra interface{}) {
+	e._extra_ = extra
 }
 
 // Error implementation to error interface.
