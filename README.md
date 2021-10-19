@@ -32,7 +32,7 @@ ESG can generate an `error` type source code with both Code and Description. And
 Install binary to `GOPATH`.
 
 ```
-go install github.com/SimpleFelix/esg/cmd/esg@latest
+go install github.com/SimpleFelix/esg/cmd/esg@v0.3.5
 ```
 
 Or build it from source.
