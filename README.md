@@ -97,7 +97,7 @@ func (e InvalidPhone) Extra() interface{} {
 }
 
 // SetExtra sets _extra_ with a value by user. Usage of _extra_ is determined by user.
-func (e InvalidPhone) SetExtra(extra interface{}) {
+func (e *InvalidPhone) SetExtra(extra interface{}) {
 	e._extra_ = extra
 }
 

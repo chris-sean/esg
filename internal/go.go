@@ -72,7 +72,7 @@ func (e %s) Extra() interface{} {
 }
 
 // SetExtra sets _extra_ with a value by user. Usage of _extra_ is determined by user.
-func (e %s) SetExtra(extra interface{}) {
+func (e *%s) SetExtra(extra interface{}) {
 	e._extra_ = extra
 }
 
