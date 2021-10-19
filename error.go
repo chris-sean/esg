@@ -5,6 +5,9 @@ type ErrorType interface {
 	ErrorCode() interface{}
 	StatusCode() int
 	Extra() interface{}
+}
+
+type ErrorTypeWriteable interface {
 	SetExtra(interface{})
 }
 
@@ -29,6 +32,3 @@ func (e noError) Extra() interface{} {
 	return nil
 }
 
-func (e noError) SetExtra(interface{}) {
-
-}
