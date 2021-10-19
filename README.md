@@ -107,8 +107,8 @@ func (e *InvalidPhone) Error() string {
 }
 
 // ErrInvalidPhone is convenient constructor.
-func ErrInvalidPhone(phone interface{}) InvalidPhone {
-	return InvalidPhone{
+func ErrInvalidPhone(phone interface{}) *InvalidPhone {
+	return &InvalidPhone{
 		phone: phone,
 	}
 }
