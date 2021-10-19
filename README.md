@@ -30,11 +30,13 @@ ESG can generate an `error` type source code with both Code and Description. And
 ### Install
 
 Install binary to `GOPATH`.
+
 ```
 go install github.com/SimpleFelix/esg/cmd/esg@latest
 ```
 
 Or build it from source.
+
 ```
 cd cmd/esg
 go build -o esg
@@ -72,7 +74,8 @@ package errors
 import "fmt"
 
 type InvalidPhone struct {
-	phone interface{}
+	ExtraValue_ interface{}
+	phone       interface{}
 }
 
 // ErrorCode change it as you prefer.
@@ -86,6 +89,11 @@ func (e InvalidPhone) ErrorCode() interface{} {
 // Ignore this function if no need for your project.
 func (e InvalidPhone) StatusCode() int {
 	return 500
+}
+
+// Extra returns ExtraValue_ which can be set by user. Usage of ExtraValue_ is determined by user.
+func (e InvalidPhone) Extra() interface{} {
+	return e.ExtraValue_
 }
 
 // Error implementation to error interface.

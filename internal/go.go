@@ -40,6 +40,7 @@ package %s
 import "fmt"
 
 type %s struct {
+	ExtraValue_ interface{}
 `, time.Now().Format("2006-01-02 15:04:05"),
 		pkg, errCode)
 	if haveArgs {
@@ -53,7 +54,7 @@ type %s struct {
 	// write Code() function
 	source += fmt.Sprintf(`
 // ErrorCode change it as you prefer.
-func (e %s)ErrorCode() interface{} {
+func (e %s) ErrorCode() interface{} {
 	return "%s"
 }
 
@@ -61,15 +62,20 @@ func (e %s)ErrorCode() interface{} {
 // Developer may want to set response status code based on error.
 // For example, if the error is caused by bad request, then change the return value to 400.
 // Ignore this function if no need for your project.
-func (e %s)StatusCode() int {
+func (e %s) StatusCode() int {
 	return %s
 }
 
-`, errCode, errCode, errCode, statusCode)
+// Extra returns ExtraValue_ which can be set by user. Usage of ExtraValue_ is determined by user.
+func (e %s) Extra() interface{} {
+	return e.ExtraValue_
+}
+
+`, errCode, errCode, errCode, statusCode, errCode)
 
 	// write Error() function
 	source += `// Error implementation to error interface.`
-	source += fmt.Sprintf("\nfunc (e %s)Error() string {\n	return fmt.Sprintf(`%s`", errCode, msg)
+	source += fmt.Sprintf("\nfunc (e %s) Error() string {\n	return fmt.Sprintf(`%s`", errCode, msg)
 	if haveArgs {
 		for _, arg := range formatArgs {
 			source += fmt.Sprintf(", e.%s", arg)
