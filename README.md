@@ -79,7 +79,7 @@ type InvalidPhone struct {
 }
 
 // ErrorCode change it as you prefer.
-func (e InvalidPhone) ErrorCode() interface{} {
+func (e *InvalidPhone) ErrorCode() interface{} {
 	return "InvalidPhone"
 }
 
@@ -87,12 +87,12 @@ func (e InvalidPhone) ErrorCode() interface{} {
 // Developer may want to set response status code based on error.
 // For example, if the error is caused by bad request, then change the return value to 400.
 // Ignore this function if no need for your project.
-func (e InvalidPhone) StatusCode() int {
+func (e *InvalidPhone) StatusCode() int {
 	return 500
 }
 
 // Extra returns _extra_ which can be set by user. Usage of _extra_ is determined by user.
-func (e InvalidPhone) Extra() interface{} {
+func (e *InvalidPhone) Extra() interface{} {
 	return e._extra_
 }
 
@@ -102,7 +102,7 @@ func (e *InvalidPhone) SetExtra(extra interface{}) {
 }
 
 // Error implementation to error interface.
-func (e InvalidPhone) Error() string {
+func (e *InvalidPhone) Error() string {
 	return fmt.Sprintf(`%v is not a valid phone number.`, e.phone)
 }
 
