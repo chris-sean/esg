@@ -102,8 +102,8 @@ func Err%s(`, errCode, errCode)
 			}
 		}
 	}
-	source += fmt.Sprintf(`) %s {
-	return %s{
+	source += fmt.Sprintf(`) *%s {
+	return &%s{
 `, errCode, errCode)
 	if haveArgs {
 		for _, arg := range formatArgs {
