@@ -22,7 +22,7 @@ It is cool if the error object that function returns contains an error code.
 Even better if it contains a http response code. Because error can be caused by either server-side or client-side. For
 example, if error is caused by wrong parameters. You may want to respond a 400 instead of 500.
 
-Or you can always respond 200 if your client doesn't read response status code. Surely `error` in the JSON is already
+Or you can always respond 200 if your client doesn't prefer response status code. Surely the `error` object in the JSON is already
 informative.
 
 ESG can generate an `error` type source code with both Code and Description. And response status code if you interested.
@@ -129,37 +129,57 @@ func brilliantlyValidate(phone string) error {
 
 ### Interface
 
-ESG provides a common interface `ErrorType` developer may need.
+ESG provides a common interface `ErrorType` developer may find useful.
 
 #### Go
 
-Import ESG module to your project. ESG module requires no dependency so far.
+Import ESG module to your project. ESG module requires no other dependency so far.
+
+#### Go Example
+
+Psuedo code below.
 
 ```go
 package awesome
 
 import "github.com/SimpleFelix/esg"
 
-type ErrorPayload struct {
-	Code interface{} `json:"code,omitempty"`
-	Desc string      `json:"desc"`
+type ResponsePayload struct {
+	Error interface{} `json:"error"`
+	Data  interface{} `json:"data,omitempty"`
 }
 
 func Handle(data interface{}, err esg.ErrorType) {
+	payload := ResponsePayload {
+		Error: err,
+		Data: data,
+	}
 	if err == nil {
-		respond(200, data)
-		return
+		respond(200, payload)
+	} else {
+		respond(err.ErrorCode(), payload)
 	}
-	payload := ErrorPayload{
-		Code: err.ErrorCode(),
-		Desc: err.Error(),
-	}
-	respond(
-		err.StatusCode(),
-		map[string]interface{}{
-			"error": payload,
-		},
-	)
 }
 ```
 
+If request succeeds, client will receive below.
+
+```json
+{
+  "error": null,
+  "data": {
+    "foo": "bar"
+  }
+}
+```
+
+Otherwise, client will receive below.
+
+```
+{
+  "error": {
+    "code": "FooNotFound",
+    "desc": "'foo' is not cute enough."
+  }
+}
+```
