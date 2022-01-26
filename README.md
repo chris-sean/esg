@@ -54,9 +54,9 @@ go build -o esg
 
 `esg go . errors InvalidPhone '%v is not a valid phone number.' phone`
 
-*If you want to use `StatusCode` function which returns a http response code. Default code is 500.*
+*If you want to use `StatusCode` function which returns a http response code which is 500 by default.*
 
-*You may want to use `-sc` argument to specify a http status code.*
+*You need to use `-sc` argument to specify a http status code.*
 
 `esg go -sc 400 . errors InvalidPhone '%v is not a valid phone number.' phone`
 
