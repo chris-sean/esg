@@ -117,7 +117,7 @@ func Err%s(`, errCode, errCode)
 
 func showHelpAndExit() {
 	fmt.Println(`
-Usage: esg go [-sc statu_code] output_dir pkg_name error_code formatted_message [name_of_arguments..]
+Usage: esg go [-sc status_code] output_dir pkg_name error_code formatted_message [name_of_arguments..]
 Example: esg go . errors InvalidPhone "%s is not valid phone number." Phone
 `)
 	os.Exit(0)
